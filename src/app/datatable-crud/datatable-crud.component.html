@@ -1,0 +1,70 @@
+<!-- <div class="row">
+    <div class="col-md-12">
+        <ngx-datatable class="material fullscreen" [rows]="rows" [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="'auto'">
+            <ngx-datatable-column name="ID" prop="number" [width]="200" [sortable]="true"></ngx-datatable-column>
+            <ngx-datatable-column name="First Name" prop="first_name" [width]="300" [sortable]="true"></ngx-datatable-column>
+            <ngx-datatable-column name="Last Name" prop="last_name" [width]="300" [sortable]="true"></ngx-datatable-column>
+            <ngx-datatable-column name="Phone" prop="phone" [width]="300" [sortable]="true"></ngx-datatable-column>
+            <ngx-datatable-column name="Email" prop="email" [width]="300" [sortable]="true"></ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div> -->
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="row align-items-center mb-3">
+            <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Search by name, phone, email..."
+                    (input)="updateFilter($event)" />
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-end">
+                <button class="btn btn-primary me-2" type="button"
+                [routerLink]="['/interactions/clients/create']">New</button>
+            </div>
+        </div>
+
+        <ngx-datatable class="bootstrap" [rows]="rows" [selected]="selected" [selectionType]="SelectionType.checkbox"
+            (select)="onSelect($event)" [headerHeight]="50" [footerHeight]="50" [limit]="5" [rowHeight]="'auto'"
+            [reorderable]="true" >
+
+            <ngx-datatable-column [width]="40" [sortable]="false" [canAutoResize]="false" [resizeable]="false"
+                [checkboxable]="true" [headerCheckboxable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="ID" prop="number" [width]="120"  [sortable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="First Name" prop="first_name" [width]="200" [sortable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Last Name" prop="last_name" [width]="200" [sortable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Phone" prop="phone" [width]="200" [sortable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Email" prop="email" [width]="250" [sortable]="true">
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Status" [width]="120" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span [ngClass]="{ 'text-success': row.is_active, 'text-danger': !row.is_active }">
+                        {{ row.is_active ? 'Active' : 'Inactive' }}
+                    </span>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Actions" [width]="150" [sortable]="false">
+                <ngx-datatable-column name="Actions" [width]="100" [sortable]="false" [canAutoResize]="false">
+                    <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                        <i class="fa fa-edit text-primary me-3 action-icon" title="Edit"
+                        [routerLink]="['/interactions/clients/update', row.client_id]"></i>
+                        <i class="fa fa-trash text-danger action-icon" title="Delete"></i>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>

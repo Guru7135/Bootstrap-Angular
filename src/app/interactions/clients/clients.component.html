@@ -1,0 +1,28 @@
+<div class="dashboard-main staff inner-nav">
+    <div class="inner-wrap">
+        <form>
+            <ul class="third-level-nav">
+                <li><a class="active">Interactions</a></li>
+            </ul>
+            <div class="inner-sub-nav">
+                <ul>
+                    <li>
+                        <a class="tooltip" [ngClass]="{ active: activeTab === 'clients' }" data-tooltip="Clients"
+                            data-tooltip-pos="right" (click)="setActiveTab('clients')"
+                            [routerLink]="['/interactions/clients/list/active']">
+                            <i class="bi bi-person"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tooltip" [ngClass]="{ active: activeTab === 'contacts' }" data-tooltip="Contacts"
+                            data-tooltip-pos="right" (click)="setActiveTab('contacts')"
+                            [routerLink]="['/interactions/contacts/list']">
+                            <i class="bi bi-person-rolodex"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <router-outlet></router-outlet>
+        </form>
+    </div>
+</div>

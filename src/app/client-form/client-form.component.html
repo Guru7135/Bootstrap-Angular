@@ -1,0 +1,102 @@
+<div class=" mt-4 col-md-12">
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="first_name" placeholder="Enter first name"/>
+                <div class="text-danger" *ngIf="f['first_name'].touched && f['first_name'].invalid">
+                    First Name is required.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="last_name" placeholder="Enter last name"/>
+                <div class="text-danger" *ngIf="f['last_name'].touched && f['last_name'].invalid">
+                    Last Name is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" formControlName="email" placeholder="Enter email"/>
+                <div class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+                    <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+                    <div *ngIf="f['email'].errors?.['email']">Enter a valid email.</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="phone" placeholder="Enter phone"/>
+                <div class="text-danger" *ngIf="f['phone'].touched && f['phone'].invalid">
+                    <div *ngIf="f['phone'].errors?.['required']">Phone number is required.</div>
+                    <div *ngIf="f['phone'].errors?.['pattern']">Enter a valid 10-digit number.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Client Type <span class="text-danger">*</span></label>
+                <select class="form-select" formControlName="client_type_id">
+                    <option value="" disabled selected>Select a type</option>
+                    <option *ngFor="let type of clientTypes" [value]="type.client_type_id">{{ type.name }}</option>
+                </select>
+                <div class="text-danger" *ngIf="f['client_type_id'].touched && f['client_type_id'].invalid">
+                    Client type is required.
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="jobManagers" class="form-label">Job Managers</label>
+                <select id="jobManagers" class="form-select" formControlName="job_manager_id" multiple size="4">
+                    <option value="" disabled selected>Select a job manager</option>
+                    <option *ngFor="let manager of jobManagersList" [value]="manager.user_profile_id">
+                        {{ manager.name }}
+                    </option>
+                </select>
+
+                <div class="text-danger" *ngIf="f['job_manager_id'].touched && f['job_manager_id'].invalid">
+                    Please select at least one job manager.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6 form-check mb-3 checkbox form-check">
+            <input class="form-check-input" type="checkbox" formControlName="is_same_as_postal_address" id="is_same_as_postal_address" />
+            <label class="form-check-label" for="is_same_as_postal_address">
+                Use as default address
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address <span class="text-danger">*</span></label>
+            <textarea class="form-control" formControlName="address" rows="3" placeholder="Enter address"></textarea>
+            <div class="text-danger" *ngIf="f['address'].touched && f['address'].invalid">
+                Address is required.
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary me-2">Save</button>
+            <button type="button" class="btn btn-secondary" [routerLink]="['/interactions/clients/list/active']">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" *ngIf="showToast">
+  <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Success</strong>
+      <!-- <small>11 mins ago</small> -->
+      <button type="button" class="btn-close" (click)="showToast = false" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Client Added
+    </div>
+  </div>
+</div>
